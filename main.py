@@ -276,7 +276,10 @@ class App(ctk.CTk):
     def sidebar_button_snakeAI_event(window):
         env=gym.make("snake:snake-v0", render_mode="human",sleep=0.1)
         nb_actions = env.action_space.n
-        model=Model.build_model_atari(nb_actions)
+        if window.snake_option_menu.get()[:3] == "DUE":
+            model=Model.build_dueling_model_atari(nb_actions)
+        else:
+            model=Model.build_model_atari(nb_actions)
         memory=SequentialMemory(limit=1000000,window_length=WINDOW_LENGTH)
         processor=ImageProcessor()
         policy=LinearAnnealedPolicy(EpsGreedyQPolicy(),attr='eps',value_max=0.2,value_min=0.1,value_test=0.05,nb_steps=1000000)
@@ -290,6 +293,8 @@ class App(ctk.CTk):
              target_model_update=10000,
              train_interval=4,
              delta_clip=1)
+        if window.snake_option_menu.get()[:3] == "DOU":
+            dqn_agent.enable_double_dqn=True
         dqn_agent.compile(Adam(learning_rate=0.00025),metrics=['mae'])
         model.load_weights("weights/snakeWeights/"+window.snake_option_menu.get()+".h5")
         results = dqn_agent.test(env, nb_episodes=1, visualize=False,)
@@ -304,7 +309,7 @@ class App(ctk.CTk):
         window.highscore=0
         window.final_score=0.0
         window.file_name='cartpole'
-        play(gym.make("CartPole-v0"), keys_to_action=mapping, seed=1,callback=window.on_done_human)
+        play(gym.make("CartPole-v1"), keys_to_action=mapping, seed=1,callback=window.on_done_human)
     
     def sidebar_button_cartPoleAI_event(window):
         env = gym.make("CartPole-v1",render_mode='human')
@@ -336,7 +341,10 @@ class App(ctk.CTk):
     def sidebar_button_spaceInvadersAI_event(window):
         env = gym.make('ALE/SpaceInvaders-v5',full_action_space=False, render_mode='human')
         nb_actions = env.action_space.n
-        model=Model.build_model_atari(nb_actions)
+        if window.space_invaders_option_menu.get()[:3] == "DUE":
+            model=Model.build_dueling_model_atari(nb_actions)
+        else:
+            model=Model.build_model_atari(nb_actions)
         memory=SequentialMemory(limit=1000000,window_length=WINDOW_LENGTH)
         processor=ImageProcessor()
         policy=LinearAnnealedPolicy(EpsGreedyQPolicy(),attr='eps',value_max=0.2,value_min=0.1,value_test=0.05,nb_steps=1000000)
@@ -350,6 +358,8 @@ class App(ctk.CTk):
              target_model_update=10000,
              train_interval=4,
              delta_clip=1)
+        if window.space_invaders_option_menu.get()[:3] == "DOU":
+            dqn_agent.enable_double_dqn=True
         dqn_agent.compile(Adam(learning_rate=0.00025),metrics=['mae'])
         model.load_weights("weights/spaceInvadersWeights/"+window.space_invaders_option_menu.get()+".h5")
         results = dqn_agent.test(env, nb_episodes=1, visualize=False,)
@@ -367,7 +377,10 @@ class App(ctk.CTk):
     def sidebar_button_packmanAI_event(window):
         env = gym.make('ALE/MsPacman-v5',full_action_space=False, render_mode='human')
         nb_actions = env.action_space.n
-        model=Model.build_model_atari(nb_actions)
+        if window.packman_option_menu.get()[:3] == "DUE":
+            model=Model.build_dueling_model_atari(nb_actions)
+        else:
+            model=Model.build_model_atari(nb_actions)
         memory=SequentialMemory(limit=1000000,window_length=WINDOW_LENGTH)
         processor=ImageProcessor()
         policy=LinearAnnealedPolicy(EpsGreedyQPolicy(),attr='eps',value_max=0.2,value_min=0.1,value_test=0.05,nb_steps=1000000)
@@ -381,6 +394,8 @@ class App(ctk.CTk):
              target_model_update=10000,
              train_interval=4,
              delta_clip=1)
+        if window.packman_option_menu.get()[:3] == "DOU":
+            dqn_agent.enable_double_dqn=True
         dqn_agent.compile(Adam(learning_rate=0.00025),metrics=['mae'])
         model.load_weights("weights/packmanWeights/"+window.packman_option_menu.get()+".h5")
         results = dqn_agent.test(env, nb_episodes=1, visualize=False,)
@@ -397,7 +412,10 @@ class App(ctk.CTk):
     def sidebar_button_carRacingAI_event(window):
         env = gym.make("CarRacing-v2", domain_randomize=True,continuous=False,render_mode='human')
         nb_actions = env.action_space.n
-        model=Model.build_model_atari(nb_actions)
+        if window.car_racing_option_menu.get()[:3] == "DUE":
+            model=Model.build_dueling_model_atari(nb_actions)
+        else:
+            model=Model.build_model_atari(nb_actions)
         memory=SequentialMemory(limit=1000000,window_length=WINDOW_LENGTH)
         processor=ImageProcessor()
         policy=LinearAnnealedPolicy(EpsGreedyQPolicy(),attr='eps',value_max=0.2,value_min=0.1,value_test=0.05,nb_steps=1000000)
@@ -411,6 +429,8 @@ class App(ctk.CTk):
              target_model_update=10000,
              train_interval=4,
              delta_clip=1)
+        if window.car_racing_option_menu.get()[:3] == "DOU":
+            dqn_agent.enable_double_dqn=True
         dqn_agent.compile(Adam(learning_rate=0.00025),metrics=['mae'])
         model.load_weights("weights/carRacingWeights/"+window.car_racing_option_menu.get()+".h5")
         results = dqn_agent.test(env, nb_episodes=1, visualize=False,)

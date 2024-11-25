@@ -17,5 +17,3 @@ class ImageProcessor(Processor):
         processed_batch=batch.astype('float32')/255.0
         return processed_batch
     
-    def process_reward(self, reward):
-        return np.clip(reward,-1.0,1.0)
