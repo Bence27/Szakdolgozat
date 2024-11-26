@@ -221,6 +221,7 @@ class App(ctk.CTk):
        
         
     def sidebar_button_snake_event(window):
+        window.file_name='snake'
         BLACK = pygame.Color(0,0,0)
         WHITE=pygame.Color(255,255,255)
         RED=pygame.Color(255,0,0)
@@ -265,7 +266,7 @@ class App(ctk.CTk):
             
             # Check if endgame
             snake_env.game_over()            
-            #window.on_done_human(None, None, None, snake_env.score, True, None, file_name='snake')
+            window.on_done_human(None, None, None, snake_env.score, True, None)
             
             #refresh game screen
             snake_env.display_score(WHITE,'arial',20)

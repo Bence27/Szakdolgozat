@@ -12,7 +12,7 @@ class Snake():
         self.frame_size_x=frame_size_x
         self.frame_size_y=frame_size_y
         self.game_window=pygame.display.set_mode((frame_size_x,frame_size_y))
-        
+        self.score=0
         #Reset The GAme
         self.reset()
     
