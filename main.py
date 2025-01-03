@@ -226,13 +226,17 @@ class App(ctk.CTk):
         WHITE=pygame.Color(255,255,255)
         RED=pygame.Color(255,0,0)
         GREEN=pygame.Color(0,255,0)
-        snake_env=Snake(600,600)
+        snake_env=Snake(400,400)
         difficulty=10
         fps_controller=pygame.time.Clock()
         check_error=pygame.init()
         pygame.display.set_caption("Snake Game")
 
         while True:
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
             
             #Human Input
             for event in pygame.event.get():

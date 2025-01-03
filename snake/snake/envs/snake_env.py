@@ -97,7 +97,11 @@ class SnakeEnv(gym.Env):
 
         return reward
 
-    def update_game_state(self):
+    def update_game_state(self): 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.close()
+        
         self.game_window.fill(BLACK)
         for pos in self.snake_body:
             pygame.draw.rect(self.game_window, GREEN, pygame.Rect(pos[0], pos[1], 10, 10))
@@ -146,4 +150,4 @@ class SnakeEnv(gym.Env):
             display.update()
 
     def close(self):
-        pass
+        pygame.quit()
